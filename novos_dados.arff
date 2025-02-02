@@ -1,0 +1,10 @@
+@relation novos_dados
+
+@attribute attribute1 numeric
+@attribute attribute2 numeric
+@attribute attribute3 numeric
+@attribute class {0, 1}
+
+@data
+7.0, 8.0, 9.0, 0
+10.0, 11.0, 12.0, 1

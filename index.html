@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Aviator Predictor</title>
+</head>
+<body>
+    <div>
+        <img src="aviator.png" alt="Aviator">
+        <h2>Próximo número: <span id="prediction"></span></h2>
+        <h4>Hora do próximo vôo: <span id="time"></span></h4>
+        <button onclick="generateNewFlight()">Gerar Novo Vôo</button>
+    </div>
+    <script>
+        async function fetchPrediction() {
+            const response = await fetch('http://localhost:8080/api/predict');
+            const data = await response.json();
+            document.getElementById('prediction').innerText = data.predictedNumber;
+            const now = new Date();
+            now.setSeconds(now.getSeconds() + 30); // exemplo de incremento de tempo
+            document.getElementById('time').innerText = now.toLocaleTimeString();
+        }
+
+        function generateNewFlight() {
+            fetch('http://localhost:8080/api/newflight')
+                .then(() => fetchPrediction());
+        }
+
+        // Carregar a primeira previsão ao carregar a página
+        fetchPrediction();
+    </script>
+</body>
+</html>
